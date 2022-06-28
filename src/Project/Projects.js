@@ -81,7 +81,8 @@ const Projects = (props) => {
           <thead>  
             <tr>  
               <th>Company Name</th>  
-              <th>Project Name</th>  
+              <th>Project Name</th>
+              <th>Kimble Url</th>  
               <th colSpan="4">Action</th>  
             </tr>  
           </thead>  

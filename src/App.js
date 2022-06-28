@@ -2,7 +2,11 @@
 import * as React from 'react';  
 import { BrowserRouter as Router, Routes, Route,Link, NavLink } from 'react-router-dom'; 
 import './App.css';
+import Header  from './Components/Header';
 import Employees from './Employee/Employees';
+import { Container, Nav, Navbar } from "reactstrap"
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 import CreateEmployee from './Employee/CreateEmployee';
 import UpdateEmployee from './Employee/UpdateEmployee';
 import DeleteEmployee from './Employee/DeleteEmployee';
@@ -28,14 +32,46 @@ import UpdateProject from './Project/UpdateProject';
 import DeleteProject from './Project/DeleteProject';
 
 import Surveys from './Survey/Surveys';
-// import CreateSurvey from './Survey/CreateSurvey';
-// import UpdateSurvey from './Survey/UpdateSurvey';
-// import DeleteSurvey from './Survey/DeleteSurvey';
+import CreateSurvey from './Survey/CreateSurvey';
+import UpdateSurvey from './Survey/UpdateSurvey';
+import DeleteSurvey from './Survey/DeleteSurvey';
+
+import ProjectOwners from './ProjectOwner/ProjectOwners';
+import CreateProjectOwner from './ProjectOwner/CreateProjectOwner';
+import UpdateProjectOwner from './ProjectOwner/UpdateProjectOwner';
+import DeleteProjectOwner from './ProjectOwner/DeleteProjectOwner';
+
+// function App(){
+
+//   return (
+//     <Router>
+//           <Header title="Technology Survey" />
+//           <Navbar bg="dark" variant="dark">
+//               <Container>
+//                   <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+//                       <Nav className="me-auto">
+//                       <Nav.Link href="/Employees">Employees</Nav.Link>
+//                       {/* <Nav.Link href="#features">Features</Nav.Link>
+//                       <Nav.Link href="#pricing">Pricing</Nav.Link> */}
+//                   </Nav>
+//               </Container>
+//           </Navbar>
+//           <Routes>                
+//              <Route path='/Employees' element={<Employees/>}/>  
+//              {/* <Route path='/gorilla' component={Gorilla}/>               
+//              <Route path='/rhino' component={Rhino}/> 
+//              <Route path='/seaTurtle' component={SeaTurtle}/>  
+//              <Route path='/' component={Home}/>             */}
+//           </Routes>
+//     </Router>
+//   );
+// }
 
 function App() {  
-  return (  
-    <Router>  
-      <div className="container">  
+  return (
+    <Router>
+      <Header title="Technology Survey" />
+      <div className="container">
         <nav className="navbar navbar-expand-lg navheader">  
           <div className="collapse navbar-collapse" >  
             <ul className="navbar-nav mr-auto">  
@@ -46,6 +82,7 @@ function App() {
                 <Link to={'/Technologies'} className="nav-link">Technology</Link>
                 <Link to={'/Projects'} className="nav-link">Project</Link>
                 <Link to={'/Surveys'} className="nav-link">Survey</Link>
+                <Link to={'/ProjectOwners'} className="nav-link">Project Owner</Link>
               </li>  
             </ul>  
           </div>  
@@ -77,51 +114,19 @@ function App() {
           <Route path='/DeleteProject/:projectId' element={<DeleteProject/>} />
 
           <Route path='/Surveys' element={<Surveys/>} />
-          {/* <Route path='/CreateSurvey' element={<CreateSurvey/>} />
-          <Route path='/UpdateSurvey/:platformid' element={<UpdateSurvey/>} />
-          <Route path='/DeleteSurvey/:platformid' element={<DeleteSurvey/>} /> */}
+          <Route path='/CreateSurvey' element={<CreateSurvey/>} />
+          <Route path='/UpdateSurvey/:projectSurveyId' element={<UpdateSurvey/>} />
+          <Route path='/DeleteSurvey/:projectSurveyId' element={<DeleteSurvey/>} />
+
+          <Route path='/ProjectOwners' element={<ProjectOwners/>} />
+          <Route path='/CreateProjectOwner' element={<CreateProjectOwner/>} />
+          <Route path='/UpdateProjectOwner/:projectOwnerId' element={<UpdateProjectOwner/>} />
+          <Route path='/DeleteProjectOwner/:projectOwnerId' element={<DeleteProjectOwner/>} />
 
         </Routes>         
       </div>  
     </Router>  
   );  
 } 
-
-// function App() {
-//     return (
-//       <div className='main-nav'>  
-//             <div className='navbar navbar-inverse'>  
-//                 <div className='navbar-header'>  
-//                     <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>  
-//                         <span className='sr-only'>Toggle navigation</span>  
-//                         <span className='icon-bar'></span>  
-//                         <span className='icon-bar'></span>  
-//                         <span className='icon-bar'></span>  
-//                     </button>  
-//                     {/* <Link className='navbar-brand' to={'/'}>ReactCrudDemo</Link>   */}
-//                 </div>  
-//                 <div className='clearfix'></div>  
-//                 <div className='navbar-collapse collapse'>  
-//                     <ul className='nav navbar-nav'>  
-//                         {/* <li>  
-//                             <NavLink to={'/'} exact activeClassName='active'>  
-//                                 <span className='glyphicon glyphicon-home'></span> Home  
-//                             </NavLink>  
-//                         </li>   */}
-//                         {/* <li>  
-//                             <NavLink to={'/Employees'} activeClassName='active'>  
-//                                 <span className='glyphicon glyphicon-th-list'></span> Employee  
-//                             </NavLink>  
-//                         </li>   */}
-//                     </ul>  
-//                 </div>  
-//             </div>  
-//         </div>
-//     );
-//   }
-
-
-
-
 
 export default App;

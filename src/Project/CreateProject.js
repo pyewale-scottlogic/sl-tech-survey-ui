@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import api from '../api'
 import Select from 'react-select'
+import ProjectOwnerComponent from '../Components/ProjectOwnerComponent';
 
 const CreateProject = () => {
 
     const navigate = useNavigate();
 
+    const localAccountOwner = React.createRef();
+
     const initialProjectState = {
       companyId : "",
       projectName : "",
+      kimbleUrl : ""
     };
 
     const selectCompanyOptions = {
@@ -47,7 +51,19 @@ const CreateProject = () => {
     };
 
     const saveNewProject = () => {
-        api.Project().create(project.companyId, {CompanyId:project.companyId,ProjectName:project.projectName})
+
+      const currentAccountOwner = localAccountOwner.current;
+
+        api.Project().create(project.companyId, 
+          {CompanyId:project.companyId,
+          ProjectName:project.projectName, 
+          KimbleUrl:project.kimbleUrl,          
+          ProjectOwners : [{           
+           TechLeadId:currentAccountOwner.state.selectedTechLeadId,
+            AccountOwnerId:currentAccountOwner.state.selectedOwnerId,
+            FromDate:currentAccountOwner.state.selectedFromDate
+          }]
+          })          
         .then(json => {  
          if(json.status=='201'){  
            console.log(json.data.Status);  
@@ -73,14 +89,11 @@ const CreateProject = () => {
                 <Select 
                     name="companyId"
                     onChange={handleCompanyChange}
-                    value={companies.value}
-                    // labelKey={companies.name}
-                    // valueKey={companies.companyId}
+                    value={companies.value}                 
                     options={companies}
                     getOptionLabel={(companies) => companies['name']}
                     getOptionValue={(companies) => companies['companyId']}     
-                >
-                    {/* {companies.map((comp) => <option key={comp.companyId} value={comp.name}>{comp.name}</option>)} */}
+                >                   
                 </Select>
               </Col>                
             </FormGroup>
@@ -89,7 +102,16 @@ const CreateProject = () => {
               <Col sm={10}>  
                 <Input type="text" name="projectName" onChange={handleInputChange} value={project.projectName} placeholder="Enter Project First Name" />  
               </Col>  
-            </FormGroup>                  
+            </FormGroup>
+            <FormGroup row>  
+              <Label for="kimbleUrl" sm={2}>Kimble Url</Label>  
+              <Col sm={10}>  
+                <Input type="text" name="kimbleUrl" onChange={handleInputChange} value={project.kimbleUrl} placeholder="Enter Kimble Url" />  
+              </Col>  
+            </FormGroup>
+            <FormGroup>
+                <ProjectOwnerComponent ref={localAccountOwner}/>                
+            </FormGroup>   
           </Col>  
           <Col>  
             <FormGroup row>  

@@ -54,6 +54,28 @@ export default {
             update: (companyId, updatedRecord) => axios.put(url+ companyId + '/projects/', updatedRecord),
             delete: (id) => axios.delete(baseUrl + 'projects/' + id)
         }
-    }
+    },
+
+    Survey(url = baseUrl + 'ProjectSurvey/') {
+        return {
+            fetchByProjectId: projectId => axios.get(url + 'projects/' + projectId),
+
+            // fetchAll: () => axios.get(baseUrl + 'projects/'),            
+            // fetchForCompany : (companyId) => axios.get(url + companyId + '/projects/' ),
+            create: (newRecord) => axios.post(url, newRecord),
+            update: (updatedRecord) => axios.put(url, updatedRecord),
+            delete: (id) => axios.delete(url + id)
+        }
+    },
+
+    ProjectOwner(url = baseUrl + 'projects/') {
+        return {
+            fetchAll: () => axios.get(baseUrl + 'projectOwners/'),
+            fetchByProjectId : id => axios.get(url + id + '/projectOwners/'),
+            create: (projectId, newRecord) => axios.post(url + projectId + '/projectOwners/', newRecord),
+            update: (projectId, updatedRecord) => axios.put(url + projectId + '/projectOwners/', updatedRecord),
+            delete: (id) => axios.delete(baseUrl + 'projectOwners/' + id)
+        }
+    },
 
 }

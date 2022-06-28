@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api'
 
 
-const DeleteEmployee = (props) => {
+const DeleteProject = (props) => {
 
     const { projectId } = useParams();
     const navigate = useNavigate();
@@ -26,4 +26,4 @@ const DeleteEmployee = (props) => {
 
 }
 
-export default DeleteEmployee;
+export default DeleteProject;

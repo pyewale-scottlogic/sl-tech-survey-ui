@@ -4,7 +4,7 @@ import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstra
 import api from '../api'
 import Select from 'react-select'
 
-const UpdateProject = (props) => {
+    const UpdateProject = (props) => {
 
     const navigate = useNavigate();
     const {projectFromList} = useLocation().state;
@@ -15,7 +15,8 @@ const UpdateProject = (props) => {
       projectId : "",
       projectName : "",
       companyId : "",
-      companyName : ""
+      companyName : "",
+      kimbleUrl:""
     };
 
     const selectCompanyOptions = {
@@ -26,18 +27,7 @@ const UpdateProject = (props) => {
     const [currentProject, setCurrentProject] = useState(initialProjectState);
     const [companies, setCompanies] = useState(selectCompanyOptions);
 
-    // const getProject = projectId => {
-    //     api.Project().fetchById(projectId)
-    //       .then(response => {
-    //         setCurrentProject(response.data);
-    //         console.log(response.data);
-    //       })
-    //       .catch(e => {
-    //         console.log(e);
-    //       });
-    //   };
-
-    
+        
     useEffect(() => {
     if (projectId)
         getCompanies();
@@ -59,7 +49,8 @@ const UpdateProject = (props) => {
     const saveUpdatedProject = () => {
         const obj = {  
             ProjectId:currentProject.projectId,  
-            ProjectName: currentProject.projectName            
+            ProjectName: currentProject.projectName,
+            KimbleUrl: currentProject.kimbleUrl
           };
 
           api.Project().update(currentProject.companyId, obj)
@@ -103,7 +94,13 @@ const UpdateProject = (props) => {
               <Col sm={10}>  
                 <Input type="text" name="projectName" onChange={handleInputChange} value={currentProject.projectName} placeholder="Enter Project Name" />  
               </Col>  
-            </FormGroup>                              
+            </FormGroup>
+            <FormGroup row>  
+              <Label for="kimbleUrl" sm={2}>Kimble Url</Label>  
+              <Col sm={10}>  
+                <Input type="text" name="kimbleUrl" onChange={handleInputChange} value={currentProject.kimbleUrl} placeholder="Enter Kimble Url" />  
+              </Col>  
+            </FormGroup>   
           </Col>  
           <Col>  
             <FormGroup row>  

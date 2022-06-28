@@ -8,8 +8,7 @@ const CreateCompany = () => {
     const navigate = useNavigate();
 
     const initialCompanyState = {
-      name : "",
-      published: false
+      name : ""     
     };
 
     const [company, setcompany] = useState(initialCompanyState);    
