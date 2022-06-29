@@ -8,6 +8,8 @@ const CreateEmployee = () => {
 
     const navigate = useNavigate();
 
+   
+
     const initialEmployeeState = {
       firstName : "",
       lastName : "",
@@ -16,9 +18,25 @@ const CreateEmployee = () => {
 
     const [employee, setEmployee] = useState(initialEmployeeState);
     const [submitted, setSubmitted] = useState(false);
+    const [validate, setValidate] = useState({
+      firstName: '',
+      lastName: '',
+    })
 
+    const validateField = (name, value) => {
+      const nameRex =/^[a-z ,.'-]+$/i   // Valid for surnames like "O'Reilly King-Luther Jr."
+      if (nameRex.test(value)) {
+        setValidate ( {...validate, [name] : 'valid'})
+      } else {
+        setValidate ( {...validate, [name] : 'invalid'})
+      }
+    }
+    const validation  = (name, result) => {
+      return validate[name] === result
+    }
     const handleInputChange = event => {
         const { name, value } = event.target;
+        validateField(name, value)
         setEmployee({ ...employee, [name]: value });
       };    
 
@@ -53,13 +71,28 @@ const CreateEmployee = () => {
             <FormGroup row>  
               <Label for="firstName" sm={2}>Employee First Name</Label>  
               <Col sm={10}>  
-                <Input type="text" name="firstName" onChange={handleInputChange} value={employee.firstName} placeholder="Enter Employee First Name" />  
+                <Input 
+                  type="text" 
+                  name="firstName" 
+                  onChange={handleInputChange} 
+                  value={employee.firstName} 
+                  placeholder="Enter Employee First Name" 
+                  valid={validation("firstName", "valid")}
+                  invalid={validation("firstName", "invalid")}
+                  />  
               </Col>  
             </FormGroup>
             <FormGroup row>  
               <Label for="lastName" sm={2}>Employee Last Name</Label>  
               <Col sm={10}>  
-                <Input type="text" name="lastName" onChange={handleInputChange} value={employee.lastName} placeholder="Enter Employee Last Name" />  
+                <Input 
+                  type="text" 
+                  name="lastName" 
+                  onChange={handleInputChange} 
+                  value={employee.lastName} 
+                  placeholder="Enter Employee Last Name"
+                  valid={validation("lastName", "valid")}
+                  invalid={validation("lastName", "invalid")} />  
               </Col>  
             </FormGroup>                       
           </Col>  
