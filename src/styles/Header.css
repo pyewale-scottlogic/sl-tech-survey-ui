@@ -1,0 +1,18 @@
+.Header-logo {
+    height: 20vmin;
+    padding: 1em;
+    width: 20vmin;
+}
+  
+.Header {
+    background-color: #221F1F;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.Header-h1 {
+    font-size: 5vmin;
+}
