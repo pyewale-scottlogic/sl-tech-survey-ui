@@ -27,6 +27,7 @@ class Platforms extends React.Component{
     render() {  
       return (        
         <div>
+          <br/>
             <div>
                 <Link to={'/CreatePlatform'} className="nav-link">Add Platform</Link>  
             </div>

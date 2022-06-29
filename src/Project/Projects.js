@@ -56,10 +56,12 @@ const Projects = (props) => {
 
     return (        
       <div>
+          <br/>
           <div>
             <Link to={'/CreateProject'} className="nav-link">Add Project</Link>  
           </div>
           <div>
+          <br/>
           <FormGroup row>  
             <Label for="companyId" sm={2}>Company Name</Label>  
             <Col sm={10}>  

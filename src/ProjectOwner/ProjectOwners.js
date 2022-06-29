@@ -30,11 +30,11 @@ const ProjectOwners = (props) => {
 
     return (
             <div>
-
+                <br/>
                 <FormGroup>
                     <Link to={'/CreateProjectOwner'} className="nav-link">Add Project Owner</Link> 
                 </FormGroup>                
-
+                <br/>
                 <div>
                     <FormGroup>
                             <CompanyProject ref={localCompanyProject}/>                

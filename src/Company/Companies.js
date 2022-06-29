@@ -27,6 +27,7 @@ class Companies extends React.Component{
     render() {  
       return (        
         <div>
+          <br/>
             <div>
                 <Link to={'/CreateCompany'} className="nav-link">Add Company</Link>  
             </div>

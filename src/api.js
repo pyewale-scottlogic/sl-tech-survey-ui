@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://localhost:7105/api/";
+const baseUrl = "https://tech-survey-api.azurewebsites.net/api/";
 
 export default {
 

@@ -102,9 +102,11 @@ const Surveys = (props) => {
 
     return (        
     <div>
+        <br/>
         <div>
             <Link to={'/CreateSurvey'} className="nav-link">Add Survey</Link>  
         </div>
+        <br/>
         <div>
         <FormGroup row>  
             <Label for="companyId" sm={2}>Company Name</Label>  
