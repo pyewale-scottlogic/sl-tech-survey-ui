@@ -18,18 +18,21 @@ const CreateCompany = () => {
         setcompany({ ...company, [name]: value });
       };
 
-    const addCompany = () => {
+    const saveNewCompany = () => {
        api.Company().create({Name:company.name})
-       .then(json => {  
-        if(json.status=='201'){  
-          console.log(json.data.Status);  
+       .then(Response => {  
+        if(Response.status =='201'){  
+          console.log(Response.status);  
             alert("Data Saved Successfully");  
             navigate('/Companies');
-          }  
+          }
+          else if(Response.status=='409')
+          {
+             alert("Data conflicting with existing records!");               
+          }
           else
           {  
-              alert('Data not Saved');  
-              navigate('/Companies');
+              alert('Something went wrong, Data not Saved!');             
           }  
         })  
     };
@@ -55,7 +58,7 @@ const CreateCompany = () => {
             <Col sm={5}>  
             </Col>  
             <Col sm={1}>  
-            <button type="button" onClick={addCompany} className="btn btn-success">Submit</button>  
+            <button type="button" onClick={saveNewCompany} className="btn btn-success">Submit</button>  
             </Col>  
             <Col sm={1}>  
               <Button type="button" onClick={onCancel} color="danger">Cancel</Button>

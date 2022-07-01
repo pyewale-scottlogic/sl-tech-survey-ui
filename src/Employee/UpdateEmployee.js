@@ -46,20 +46,24 @@ const UpdateEmployee = (props) => {
             EmployeeId:currentEmployee.employeeId,  
             FirstName: currentEmployee.firstName,  
             LastName: currentEmployee.lastName  
-          };
+          };         
 
           api.Employee().update(obj.EmployeeId, obj)
-          .then(json => {  
-            if(json.status=='204'){  
-              console.log(json.data.Status);  
-              alert("Data Updated Successfully");  
-              navigate('/Employees');
-            }  
-            else{  
-                alert('Data update failed');  
-                navigate('/Employees'); 
-            }  
-            });
+          .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
+                navigate('/Employees');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };
 
     const onCancel = () => {

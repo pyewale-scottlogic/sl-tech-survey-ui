@@ -34,7 +34,7 @@ const UpdateSurvey = (props) =>
         navigate('/Surveys');            
         };
 
-    const updateSurvey = () => {
+    const saveUpdatedSurvey = () => {
         const currentSurveyPeriodPicker = localSurveyPeriodPicker.current;
         const currentCompanyProject = localCompanyProject.current;
         const currentTechnologyPlatform = localTechnologyPlatform.current;
@@ -45,21 +45,25 @@ const UpdateSurvey = (props) =>
         Platforms:currentTechnologyPlatform.state.selectedPlatforms,        
         ProjectId:currentCompanyProject.state.selectedProjectId,        
         Year:currentSurveyPeriodPicker.state.selectedYear,
-        Quarter:currentSurveyPeriodPicker.state.selectedQuarter
+        Quarter:currentSurveyPeriodPicker.state.selectedQuarter,
+        SurveyDate:currentSurveyPeriodPicker.state.selectedSurveyDate
         })
-        .then(json => {  
-            if(json.status=='204'){  
-            console.log(json.data.Status);  
-                alert("Data Saved Successfully");  
+        .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
                 navigate('/Surveys');
-            }  
-            else
-            {  
-                alert('Data update failed');  
-                navigate('/Surveys');
-            }  
-            })  
-        };
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })
+    };
 
     return (        
         <Container className='App'>
@@ -68,7 +72,7 @@ const UpdateSurvey = (props) =>
                 <CompanyProject ref={localCompanyProject} selectedCompanyId={projectSurveyFromList.project.companyId} selectedProjectId={projectSurveyFromList.project.projectId} readOnly="true"/>                
             </FormGroup>            
             <FormGroup>
-                <SurveyPeriodPicker ref={localSurveyPeriodPicker} selectedYear={projectSurveyFromList.year} selectedQuarter={projectSurveyFromList.quarter}/>                
+                <SurveyPeriodPicker ref={localSurveyPeriodPicker} selectedYear={projectSurveyFromList.year} selectedQuarter={projectSurveyFromList.quarter} selectedSurveyDate={projectSurveyFromList.surveyDate}/>                
             </FormGroup>
             <FormGroup>
                 <TechnologyPlatform ref={localTechnologyPlatform} selectedTechnologies={projectSurveyFromList.technologies} selectedPlatforms={projectSurveyFromList.platforms}/>                
@@ -80,7 +84,7 @@ const UpdateSurvey = (props) =>
                 <Col sm={5}>  
                 </Col>  
                 <Col sm={1}>  
-                <button type="button" onClick={updateSurvey} className="btn btn-success">Submit</button>  
+                <button type="button" onClick={saveUpdatedSurvey} className="btn btn-success">Submit</button>  
                 </Col>  
                 <Col sm={1}>  
                 <Button type="button" onClick={onCancel} color="danger">Cancel</Button>

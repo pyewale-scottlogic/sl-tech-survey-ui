@@ -48,7 +48,14 @@ const Projects = (props) => {
       {
         api.Project().fetchForCompany(companyIdForSearch.companyId).then(response => 
           {
-            setCurrentList(response.data);
+            if(response.data.length==0)
+            {
+                alert("No data found for selected criteria!");  
+            }
+            else
+            {
+                setCurrentList(response.data);
+            }
           }).catch(e => { console.log(e);});
       }
 

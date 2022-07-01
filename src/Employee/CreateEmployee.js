@@ -20,24 +20,26 @@ const CreateEmployee = () => {
     const handleInputChange = event => {
         const { name, value } = event.target;
         setEmployee({ ...employee, [name]: value });
-      };
+      };    
 
-    
-      const saveNewEmployee = () => {
-        api.Employee().create({FirstName:employee.firstName,LastName:employee.lastName})
-        .then(json => {  
-         if(json.status=='201'){  
-           console.log(json.data.Status);  
-             alert("Data Saved Successfully");  
-             navigate('/Employees');
-           }  
-           else
-           {  
-               alert('Data not Saved');  
-               navigate('/Employees');
-           }  
-         })  
-     };
+    const saveNewEmployee = () => {
+      api.Employee().create({FirstName:employee.firstName,LastName:employee.lastName})
+      .then(Response => {  
+       if(Response.status =='201'){  
+         console.log(Response.status);  
+           alert("Data Saved Successfully");  
+           navigate('/Employees');
+         }
+         else if(Response.status=='409')
+         {
+            alert("Data conflicting with existing records!");               
+         }
+         else
+         {  
+             alert('Something went wrong, Data not Saved!');             
+         }  
+       })  
+   };
 
      const onCancel = () => {
       navigate('/Employees');            

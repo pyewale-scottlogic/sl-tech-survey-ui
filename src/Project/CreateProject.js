@@ -64,18 +64,21 @@ const CreateProject = () => {
             FromDate:currentAccountOwner.state.selectedFromDate
           }]
           })          
-        .then(json => {  
-         if(json.status=='201'){  
-           console.log(json.data.Status);  
-             alert("Data Saved Successfully");  
-             navigate('/Projects');
-           }  
-           else
-           {  
-               alert('Data not Saved');  
-               navigate('/Projects');
-           }  
-         })  
+          .then(Response => {  
+            if(Response.status =='201'){  
+              console.log(Response.status);  
+                alert("Data Saved Successfully");  
+                navigate('/Projects');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };    
 
      return(

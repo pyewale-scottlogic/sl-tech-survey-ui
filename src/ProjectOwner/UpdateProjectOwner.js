@@ -44,18 +44,21 @@ const UpdateProjectOwner = () => {
             FromDate:currentAccountOwner.state.selectedFromDate
             
           })          
-        .then(json => {  
-         if(json.status=='204'){  
-           console.log(json.data.Status);  
-             alert("Data updated Successfully");  
-             navigate('/ProjectOwners');
-           }  
-           else
-           {  
-               alert('Data update failed');  
-               navigate('/ProjectOwners');
-           }  
-         })  
+          .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
+                navigate('/ProjectOwners');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })
     };    
 
      return(

@@ -29,18 +29,21 @@ const CreateProjectOwner = () => {
             AccountOwnerId:currentAccountOwner.state.selectedOwnerId,
             FromDate: new Date(currentAccountOwner.state.selectedFromDate).toDateString()
           })          
-        .then(json => {  
-         if(json.status=='201'){  
-           console.log(json.data.Status);  
-             alert("Data Saved Successfully");  
-             navigate('/ProjectOwners');
-           }  
-           else
-           {  
-               alert('Data not Saved');  
-               navigate('/ProjectOwners');
-           }  
-         })  
+          .then(Response => {  
+            if(Response.status =='201'){  
+              console.log(Response.status);  
+                alert("Data Saved Successfully");  
+                navigate('/ProjectOwners');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };    
 
      return(

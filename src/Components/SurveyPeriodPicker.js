@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation, Link } from 'react-router-dom';
-import Select, { components } from 'react-select'
-import api from '../api'
-import { Col, FormGroup, Label, Button, Container} from 'reactstrap';
+import React from 'react';
+import { Col, FormGroup, Label} from 'reactstrap';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const minOffset = -1;
 const maxOffset = 10; 
@@ -13,7 +12,8 @@ class SurveyPeriodPicker extends React.Component {
     
     this.state = {
       selectedYear: "",
-      selectedQuarter:""
+      selectedQuarter:"",
+      selectedSurveyDate : new Date()
     }
 
     
@@ -25,6 +25,7 @@ componentDidMount(){
   {
     this.setState({selectedYear: this.props.selectedYear});
     this.setState({selectedQuarter: this.props.selectedQuarter});
+    this.setState({selectedSurveyDate: new Date(this.props.selectedSurveyDate)});
   }
   else{
   const thisYear = (new Date()).getFullYear();
@@ -39,6 +40,10 @@ componentDidMount(){
 
   onQuarterChange = (evt) => {
     this.setState({ selectedQuarter: evt.target.value });
+  };
+
+  onSurveyDateChange = (date) => {
+    this.setState({ selectedSurveyDate : date });
   };
 
   render() {
@@ -74,6 +79,15 @@ componentDidMount(){
           </select>
           </Col>
         </FormGroup>
+        <FormGroup row>  
+        <Label for="fromDate" sm={2}>Survey Date</Label>  
+        <Col sm={5}>
+            <DatePicker 
+            selected={this.state.selectedSurveyDate} 
+            onChange={(date) => this.onSurveyDateChange(date)} 
+            dateFormat={"dd/MM/yyyy"}/>
+        </Col>   
+    </FormGroup>    
       </div>
     );
   }

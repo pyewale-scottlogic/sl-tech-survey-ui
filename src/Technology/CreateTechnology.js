@@ -21,18 +21,21 @@ const CreateTechnology = () => {
     
       const saveNewTechnology = () => {
         api.Technology().create({Name:technology.name})
-        .then(json => {  
-         if(json.status=='201'){  
-           console.log(json.data.Status);  
-             alert("Data Saved Successfully");  
-             navigate('/Technologies');
-           }  
-           else
-           {  
-               alert('Data not Saved');  
-               navigate('/Technologies');
-           }  
-         })  
+        .then(Response => {  
+          if(Response.status =='201'){  
+            console.log(Response.status);  
+              alert("Data Saved Successfully");  
+              navigate('/Technologies');
+            }
+            else if(Response.status=='409')
+            {
+               alert("Data conflicting with existing records!");               
+            }
+            else
+            {  
+                alert('Something went wrong, Data not Saved!');             
+            }  
+          })  
      };
 
      const onCancel = () => {

@@ -45,17 +45,21 @@ const UpdatePlatform = (props) => {
           };
 
           api.Platform().update(obj.PlatformId, obj)
-          .then(json => {  
-            if(json.status=='204'){  
-              console.log(json.data.Status);  
-              alert("Data Updated Successfully");  
-              navigate('/Platforms');
-            }  
-            else{  
-                alert('Data update failed');  
-                navigate('/Platforms'); 
-            }  
-            });
+          .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
+                navigate('/Platforms');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };
 
     const onCancel = () => {

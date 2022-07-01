@@ -15,14 +15,7 @@ const CreateSurvey = (props) =>
 
     const localSurveyPeriodPicker = React.createRef();
     const localCompanyProject = React.createRef();
-    const localTechnologyPlatform = React.createRef();
-
-    // useEffect(() => {        
-    //     if(projectSurveyFromList == null)
-    //     {
-
-    //     }
-    // }, [projectSurveyFromList]);    
+    const localTechnologyPlatform = React.createRef();    
 
     const saveSurvey = () => {
         const currentSurveyPeriodPicker = localSurveyPeriodPicker.current;
@@ -35,20 +28,24 @@ const CreateSurvey = (props) =>
         Technologies:currentTechnologyPlatform.state.selectedTechnologies,
         Platforms:currentTechnologyPlatform.state.selectedPlatforms,
         Year:currentSurveyPeriodPicker.state.selectedYear,
-        Quarter:currentSurveyPeriodPicker.state.selectedQuarter
+        Quarter:currentSurveyPeriodPicker.state.selectedQuarter,
+        SurveyDate:currentSurveyPeriodPicker.state.selectedSurveyDate
         })
-        .then(json => {  
-         if(json.status=='201'){  
-           console.log(json.data.Status);  
-             alert("Data Saved Successfully");  
-             navigate('/Surveys');
-           }  
-           else
-           {  
-               alert('Data not Saved');  
-               navigate('/Surveys');
-           }  
-         })  
+        .then(Response => {  
+          if(Response.status =='201'){  
+            console.log(Response.status);  
+              alert("Data Saved Successfully");  
+              navigate('/Surveys');
+            }
+            else if(Response.status=='409')
+            {
+               alert("Data conflicting with existing records!");               
+            }
+            else
+            {  
+                alert('Something went wrong, Data not Saved!');             
+            }  
+          })
      };
 
     const onCancel = () => {

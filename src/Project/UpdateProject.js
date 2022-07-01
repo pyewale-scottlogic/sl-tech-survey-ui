@@ -3,6 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import api from '../api'
 import Select from 'react-select'
+import ProjectOwnersView from '../ProjectOwner/ProjectOwnersView';
 
     const UpdateProject = (props) => {
 
@@ -16,7 +17,8 @@ import Select from 'react-select'
       projectName : "",
       companyId : "",
       companyName : "",
-      kimbleUrl:""
+      kimbleUrl:"",
+      projectOwners:[]
     };
 
     const selectCompanyOptions = {
@@ -54,17 +56,21 @@ import Select from 'react-select'
           };
 
           api.Project().update(currentProject.companyId, obj)
-          .then(json => {  
-            if(json.status=='204'){  
-              console.log(json.data.Status);  
-              alert("Data Updated Successfully");  
-              navigate('/Projects');
-            }  
-            else{  
-                alert('Data update failed');  
-                navigate('/Projects'); 
-            }  
-            });
+          .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
+                navigate('/Projects');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };
 
     const onCancel = () => {
@@ -73,7 +79,7 @@ import Select from 'react-select'
 
     return(
         <Container className="App">  
-        <h4 className="PageHeading">Enter Project Information</h4>  
+        <h4 className="PageHeading">Edit Project</h4>  
         <Form className="form">  
           <Col>
           <FormGroup row>  
@@ -100,8 +106,11 @@ import Select from 'react-select'
               <Col sm={10}>  
                 <Input type="text" name="kimbleUrl" onChange={handleInputChange} value={currentProject.kimbleUrl} placeholder="Enter Kimble Url" />  
               </Col>  
-            </FormGroup>   
-          </Col>  
+            </FormGroup>
+            <FormGroup>
+                <ProjectOwnersView owners={projectFromList.projectOwners}/>                
+            </FormGroup>  
+          </Col>          
           <Col>  
             <FormGroup row>  
               <Col sm={5}>  

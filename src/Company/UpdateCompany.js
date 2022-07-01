@@ -46,17 +46,21 @@ const UpdateCompany = (props) => {
           };
 
           api.Company().update(obj.CompanyId, obj)
-          .then(json => {  
-            if(json.status=='204'){  
-              console.log(json.data.Status);  
-              alert("Data Updated Successfully");  
-              navigate('/Companies');
-            }  
-            else{  
-                alert('Data update failed');  
-                navigate('/Companies'); 
-            }  
-            });
+          .then(Response => {  
+            if(Response.status =='204'){  
+              console.log(Response.status);  
+                alert("Data updated Successfully");  
+                navigate('/Companies');
+              }
+              else if(Response.status=='409')
+              {
+                 alert("Data conflicting with existing records!");               
+              }
+              else
+              {  
+                  alert('Something went wrong, Data not Saved!');             
+              }  
+            })  
     };
 
     const onCancel = () => {
