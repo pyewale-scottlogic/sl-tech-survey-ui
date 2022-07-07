@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './AddEmployee.css'
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import api from '../api'
+import { validateName, isFormValid, isError, showError } from '../utils';
+import '../styles/Error.css'
 
 const CreateEmployee = () => {
 
     const navigate = useNavigate();
-
-   
 
     const initialEmployeeState = {
       firstName : "",
@@ -17,29 +17,23 @@ const CreateEmployee = () => {
     };
 
     const [employee, setEmployee] = useState(initialEmployeeState);
-    const [submitted, setSubmitted] = useState(false);
-    const [validate, setValidate] = useState({
+    
+    const [error, setError] = useState({
       firstName: '',
       lastName: '',
     })
-
-    const validateField = (name, value) => {
-      const nameRex =/^[a-z ,.'-]+$/i   // Valid for surnames like "O'Reilly King-Luther Jr."
-      if (nameRex.test(value)) {
-        setValidate ( {...validate, [name] : 'valid'})
-      } else {
-        setValidate ( {...validate, [name] : 'invalid'})
-      }
-    }
-    const validation  = (name, result) => {
-      return validate[name] === result
-    }
+  
     const handleInputChange = event => {
         const { name, value } = event.target;
-        validateField(name, value)
+        setError ( {...error, ...validateName(name, value)})
         setEmployee({ ...employee, [name]: value });
       };    
-
+    
+    const validateAndAdd = () => {
+      if (isFormValid(error, "Company")) {
+          saveNewEmployee();
+      }
+    }
     const saveNewEmployee = () => {
       api.Employee().create({FirstName:employee.firstName,LastName:employee.lastName})
       .then(Response => {  
@@ -77,10 +71,11 @@ const CreateEmployee = () => {
                   onChange={handleInputChange} 
                   value={employee.firstName} 
                   placeholder="Enter Employee First Name" 
-                  valid={validation("firstName", "valid")}
-                  invalid={validation("firstName", "invalid")}
-                  />  
-              </Col>  
+                  valid={! isError(error.firstName)}
+                  invalid={ isError(error.firstName)}
+                  /> 
+                  {showError(error.lastName)}
+                 </Col>  
             </FormGroup>
             <FormGroup row>  
               <Label for="lastName" sm={2}>Employee Last Name</Label>  
@@ -91,9 +86,11 @@ const CreateEmployee = () => {
                   onChange={handleInputChange} 
                   value={employee.lastName} 
                   placeholder="Enter Employee Last Name"
-                  valid={validation("lastName", "valid")}
-                  invalid={validation("lastName", "invalid")} />  
+                  valid={ ! isError(error.lastName)}
+                  invalid={ isError(error.lastName)} />  
+               {showError(error.lastName)}
               </Col>  
+              
             </FormGroup>                       
           </Col>  
           <Col>  
@@ -101,7 +98,7 @@ const CreateEmployee = () => {
               <Col sm={5}>  
               </Col>  
               <Col sm={1}>  
-              <button type="button" onClick={saveNewEmployee} className="btn btn-success">Submit</button>  
+              <button type="button" onClick={validateAndAdd} className="btn btn-success">Submit</button>  
               </Col>  
               <Col sm={1}>  
               <Button type="button" onClick={onCancel} color="danger">Cancel</Button>

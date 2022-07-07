@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import api from '../api'
+import { validateCompanyProject, isFormValid, isError, showError } from '../utils';
 
 const CreateCompany = () => {
 
@@ -12,13 +13,21 @@ const CreateCompany = () => {
     };
 
     const [company, setcompany] = useState(initialCompanyState);    
+    const [error, setError] = useState({name: ''})
 
     const handleInputChange = event => {
         const { name, value } = event.target;
+        setError ( {...error, ...validateCompanyProject(name, value)})
         setcompany({ ...company, [name]: value });
       };
+    
+    const validateAndAdd = () => {
+      if (isFormValid(error, "Company")) {
+        addCompany();
+      }
+    }
 
-    const saveNewCompany = () => {
+    const addCompany = () => {
        api.Company().create({Name:company.name})
        .then(Response => {  
         if(Response.status =='201'){  
@@ -49,7 +58,16 @@ const CreateCompany = () => {
           <FormGroup row>  
             <Label for="name" sm={2}>Company Name</Label>  
             <Col sm={10}>  
-              <Input type="text" name="name" onChange={handleInputChange} value={company.name} placeholder="Enter Company Name" />  
+              <Input 
+                type="text" 
+                name="name" 
+                onChange={handleInputChange} 
+                value={company.name} 
+                placeholder="Enter Company Name" 
+                valid={! isError(error.name)}
+                invalid={isError(error.name)}
+                />  
+                {showError(error.name)}
             </Col>  
           </FormGroup>                       
         </Col>  
@@ -58,7 +76,7 @@ const CreateCompany = () => {
             <Col sm={5}>  
             </Col>  
             <Col sm={1}>  
-            <button type="button" onClick={saveNewCompany} className="btn btn-success">Submit</button>  
+            <button type="button" onClick={validateAndAdd} className="btn btn-success">Submit</button>  
             </Col>  
             <Col sm={1}>  
               <Button type="button" onClick={onCancel} color="danger">Cancel</Button>
