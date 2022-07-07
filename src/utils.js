@@ -1,9 +1,9 @@
 export const validateName = (name, value) => {
     const nameRex =/^[a-z ,.'-]+$/i   // Valid for surnames like "O'Reilly King-Luther Jr."
     if (nameRex.test(value)) {
-       return  { [name] : 'valid'}
+        return { [name] : 'valid'}
     } else {
-        return  { [name] : name + " should be alphabetic characters or contain space, comma, period, hyphen or '"}
+        return { [name] : name + " should be alphabetic characters or contain space, comma, period, hyphen or '"}
     }
   }
 
@@ -19,6 +19,7 @@ export const validateCompanyProject = (name, value) => {
   }
 
 export const isFormValid = (validateObj, desc) => {
+    
     if (Object.keys(validateObj).every((k) => validateObj[k] === 'valid') ) {
         console.log(desc, " can be created as all fields valid")
         return true;
@@ -28,7 +29,6 @@ export const isFormValid = (validateObj, desc) => {
         return false;
     }
 }
-
 export const isError  = (status) => {
     if ( status === 'valid' ) {
         return false

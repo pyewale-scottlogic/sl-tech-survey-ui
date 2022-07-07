@@ -22,6 +22,8 @@ const CreateEmployee = () => {
       firstName: '',
       lastName: '',
     })
+
+    
   
     const handleInputChange = event => {
         const { name, value } = event.target;
@@ -30,7 +32,7 @@ const CreateEmployee = () => {
       };    
     
     const validateAndAdd = () => {
-      if (isFormValid(error, "Company")) {
+      if (isFormValid(error, "Employee")) {
           saveNewEmployee();
       }
     }
@@ -74,7 +76,7 @@ const CreateEmployee = () => {
                   valid={! isError(error.firstName)}
                   invalid={ isError(error.firstName)}
                   /> 
-                  {showError(error.lastName)}
+                  {showError(error.firstName)}
                  </Col>  
             </FormGroup>
             <FormGroup row>  
@@ -86,7 +88,7 @@ const CreateEmployee = () => {
                   onChange={handleInputChange} 
                   value={employee.lastName} 
                   placeholder="Enter Employee Last Name"
-                  valid={ ! isError(error.lastName)}
+                  valid={ !isError(error.lastName)}
                   invalid={ isError(error.lastName)} />  
                {showError(error.lastName)}
               </Col>  

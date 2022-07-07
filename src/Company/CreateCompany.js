@@ -27,7 +27,14 @@ const CreateCompany = () => {
       }
     }
 
+
+      const validateAndAdd = () => {
+        if (isFormValid(error, "Company")) {
+            addCompany()
+        } 
+      }
     const addCompany = () => {
+     
        api.Company().create({Name:company.name})
        .then(Response => {  
         if(Response.status =='201'){  
@@ -64,7 +71,7 @@ const CreateCompany = () => {
                 onChange={handleInputChange} 
                 value={company.name} 
                 placeholder="Enter Company Name" 
-                valid={! isError(error.name)}
+                valid={!isError(error.name)}
                 invalid={isError(error.name)}
                 />  
                 {showError(error.name)}
