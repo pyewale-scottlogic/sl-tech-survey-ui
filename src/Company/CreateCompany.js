@@ -25,14 +25,8 @@ const CreateCompany = () => {
       if (isFormValid(error, "Company")) {
         addCompany();
       }
-    }
+w    }
 
-
-      const validateAndAdd = () => {
-        if (isFormValid(error, "Company")) {
-            addCompany()
-        } 
-      }
     const addCompany = () => {
      
        api.Company().create({Name:company.name})
