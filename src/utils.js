@@ -3,18 +3,16 @@ export const validateName = (name, value) => {
     if (nameRex.test(value)) {
         return { [name] : 'valid'}
     } else {
-        return { [name] : name + " should be alphabetic characters or contain space, comma, period, hyphen or '"}
+        return { [name] : name + " invalid, should be alphabetic characters or contain space, comma, period, hyphen or '"}
     }
   }
 
 export const validateCompanyProject = (name, value) => {
-    console.log(name, value)
     const nameRex =/^[a-z0-9 ,.'-]+$/i   // Valid companies like 3M 
     if (nameRex.test(value)) {
-    console.log(name, value)
        return  { [name] : 'valid'}
     } else {
-        return  { [name] : name + " should be alphanumeric characters or contain space, comma, period, hyphen or '"}
+        return  { [name] : name + " invalid, should be alphanumeric characters or contain space, comma, period, hyphen or '"}
     }
   }
 

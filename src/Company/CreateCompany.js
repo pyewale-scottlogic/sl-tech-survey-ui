@@ -6,7 +6,7 @@ import { validateCompanyProject, isFormValid, isError, showError } from '../util
 
 const CreateCompany = () => {
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const initialCompanyState = {
       name : ""     
@@ -54,7 +54,7 @@ const CreateCompany = () => {
     };
 
     const onCancel = () => {
-      navigate('/Companies');            
+      //navigate('/Companies');            
     };
     
     return(
