@@ -53,13 +53,13 @@ function App(){
                   
                       <Nav className="me-auto">
                         <NavbarBrand href="/Summary">Summary</NavbarBrand>
-                        <NavLink href="/Employees">Employees</NavLink>
-                        <NavLink href="/Companies">Companies</NavLink>
-                        <NavLink href="/Platforms">Platforms</NavLink>
-                        <NavLink href="/Technologies">Technologies</NavLink>
-                        <NavLink href="/Projects">Projects</NavLink>
-                        <NavLink href="/ProjectOwners">Project Owners</NavLink>
-                        <NavLink href="/Surveys">Surveys</NavLink>                      
+                        <NavLink to="/Employees" tag={Link}>Employees</NavLink>
+                        <NavLink to="/Companies" tag={Link}>Companies</NavLink>
+                        <NavLink to="/Platforms" tag={Link}>Platforms</NavLink>
+                        <NavLink to="/Technologies" tag={Link}>Technologies</NavLink>
+                        <NavLink to="/Projects" tag={Link}>Projects</NavLink>
+                        <NavLink to="/ProjectOwners" tag={Link}>Project Owners</NavLink>
+                        <NavLink to="/Surveys" tag={Link}>Surveys</NavLink>                      
                       </Nav>
               </Container>
           </Navbar>
