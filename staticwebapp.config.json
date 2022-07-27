@@ -1,8 +1,28 @@
-{    
+
+{
+    "navigationFallback": {
+        "rewrite": "index.html",
+        "exclude": ["/static/images/*.{png,jpg,gif}", "/static/css/*"]
+    },
+    "mimeTypes": {
+        ".json": "text/json"
+    },
     "routes" :[
         {
             "route" : "/login",
             "redirect": "/.auth/login/aad"
+        },
+        {
+            "route" : "/.auth/login/twitter",
+            "statuscode":"404"
+        },        
+        {
+            "route" : "/.auth/login/github",
+            "statuscode":"404"
+        }
+        {
+            "route":"/*",
+            "allowedRoles":["authenticated"]
         }
     ]
 }
