@@ -19,9 +19,9 @@
         {
             "route" : "/.auth/login/github",
             "statuscode":"404"
-        }
+        },
         {
-            "route":"/*",
+            "route":"/Employees",
             "allowedRoles":["authenticated"]
         }
     ]
