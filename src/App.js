@@ -49,10 +49,10 @@ function App(){
     <Router>
           <Header title="Technology Survey" />
           <Navbar bg="dark" variant="dark">
-              <Container>
-                  
-                      <Nav className="me-auto">
+              <Container>                  
+                      <Nav className="me-auto">                    
                         <NavbarBrand href="/Summary">Summary</NavbarBrand>
+                        <NavLink href="/.auth/login/aad">Login</NavLink>
                         <NavLink to="/Employees" tag={Link}>Employees</NavLink>
                         <NavLink to="/Companies" tag={Link}>Companies</NavLink>
                         <NavLink to="/Platforms" tag={Link}>Platforms</NavLink>
@@ -104,67 +104,5 @@ function App(){
     </Router>
   );
 }
-
-// function App() {  
-//   return (
-//     <Router>
-//       <Header title="Technology Survey" />
-//       <div className="container">
-//         <nav className="navbar navbar-expand-lg navheader">  
-//           <div className="collapse navbar-collapse" >  
-//             <ul className="navbar-nav mr-auto">  
-//               <li className="nav-item">  
-//                 <Link to={'/Employees'} className="nav-link">Employee</Link> 
-//                 <Link to={'/Companies'} className="nav-link">Company</Link>
-//                 <Link to={'/Platforms'} className="nav-link">Platform</Link>
-//                 <Link to={'/Technologies'} className="nav-link">Technology</Link>
-//                 <Link to={'/Projects'} className="nav-link">Project</Link>
-//                 <Link to={'/Surveys'} className="nav-link">Survey</Link>
-//                 <Link to={'/ProjectOwners'} className="nav-link">Project Owner</Link>
-//               </li>  
-//             </ul>  
-//           </div>  
-//         </nav> <br />  
-//         <Routes>  
-//           <Route path='/Employees' element={<Employees/>} />  
-//           <Route path='/CreateEmployee' element={<CreateEmployee/>} />
-//           <Route path='/UpdateEmployee/:empid' element={<UpdateEmployee/>} />
-//           <Route path='/DeleteEmployee/:empid' element={<DeleteEmployee/>} />
-
-//           <Route path='/Companies' element={<Companies/>} />
-//           <Route path='/CreateCompany' element={<CreateCompany/>} />
-//           <Route path='/UpdateCompany/:companyid' element={<UpdateCompany/>} />
-//           <Route path='/DeleteCompany/:companyid' element={<DeleteCompany/>} />
-
-//           <Route path='/Platforms' element={<Platforms/>} />
-//           <Route path='/CreatePlatform' element={<CreatePlatform/>} />
-//           <Route path='/UpdatePlatform/:platformId' element={<UpdatePlatform/>} />
-//           <Route path='/DeletePlatform/:platformId' element={<DeletePlatform/>} />
-
-//           <Route path='/Technologies' element={<Technologies/>} />
-//           <Route path='/CreateTechnology' element={<CreateTechnology/>} />
-//           <Route path='/UpdateTechnology/:technologyId' element={<UpdateTechnology/>} />
-//           <Route path='/DeleteTechnology/:technologyId' element={<DeleteTechnology/>} />
-
-//           <Route path='/Projects' element={<Projects/>} />
-//           <Route path='/CreateProject' element={<CreateProject/>} />
-//           <Route path='/UpdateProject/:projectId' element={<UpdateProject/>} />
-//           <Route path='/DeleteProject/:projectId' element={<DeleteProject/>} />
-
-//           <Route path='/Surveys' element={<Surveys/>} />
-//           <Route path='/CreateSurvey' element={<CreateSurvey/>} />
-//           <Route path='/UpdateSurvey/:projectSurveyId' element={<UpdateSurvey/>} />
-//           <Route path='/DeleteSurvey/:projectSurveyId' element={<DeleteSurvey/>} />
-
-//           <Route path='/ProjectOwners' element={<ProjectOwners/>} />
-//           <Route path='/CreateProjectOwner' element={<CreateProjectOwner/>} />
-//           <Route path='/UpdateProjectOwner/:projectOwnerId' element={<UpdateProjectOwner/>} />
-//           <Route path='/DeleteProjectOwner/:projectOwnerId' element={<DeleteProjectOwner/>} />
-
-//         </Routes>         
-//       </div>  
-//     </Router>  
-//   );  
-// } 
 
 export default App;
