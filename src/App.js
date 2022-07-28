@@ -1,5 +1,6 @@
 
-import * as React from 'react';  
+// import * as React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route,Link } from 'react-router-dom'; 
 import './App.css';
 import { Container, Nav, Navbar, NavbarBrand, NavLink } from "reactstrap"
@@ -45,14 +46,39 @@ import DeleteProjectOwner from './ProjectOwner/DeleteProjectOwner';
 
 function App(){
 
+  const redirect = window.location.pathname;
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    (async () => {
+      setUserInfo(await getUserInfo());
+    })();
+  }, []);
+
+  async function getUserInfo() {
+    try {
+      const response = await fetch('/.auth/me');
+      const payload = await response.json();
+      const { clientPrincipal } = payload;
+      return clientPrincipal;
+    } catch (error) {
+      console.error('No profile could be found');
+      return undefined;
+    }
+  }
+
   return (
     <Router>
           <Header title="Technology Survey" />
+          
           <Navbar bg="dark" variant="dark">
-              <Container>                  
+              <Container>
+                      <Nav className="ml-auto">
+                      {!userInfo && <a href="/.auth/login/aad"post_login_redirect_uri={`${redirect}`}>Login</a> }
+                      {userInfo && <a href={`/.auth/logout?post_logout_redirect_uri=${redirect}`}>Logout</a>}
+                      </Nav>
                       <Nav className="me-auto">                    
                         <NavbarBrand href="/Summary">Summary</NavbarBrand>
-                        <NavLink href="/.auth/login/aad">Login</NavLink>
                         <NavLink to="/Employees" tag={Link}>Employees</NavLink>
                         <NavLink to="/Companies" tag={Link}>Companies</NavLink>
                         <NavLink to="/Platforms" tag={Link}>Platforms</NavLink>
@@ -63,6 +89,15 @@ function App(){
                       </Nav>
               </Container>
           </Navbar>
+          {userInfo && (
+            <div>
+              <div className="user">
+                <p>Welcome</p>
+                <p>{userInfo && userInfo.userDetails}</p>
+                <p>{userInfo && userInfo.identityProvider}</p>
+              </div>
+            </div>
+          )}
          <Routes>
            <Route path='/Summary' element={<Summary/>}/>
 
